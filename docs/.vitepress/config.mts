@@ -22,6 +22,7 @@ export default defineConfig({
       {
         text: 'Go',
         items: [
+          {text: 'Channel', link: '/go/channel'}
           // {text: 'go routine', link: '/go/goroutine'},
         ],
       },
