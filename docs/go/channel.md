@@ -37,7 +37,53 @@ val, ok := <-ch
 
 ## 底层实现
 
+### Channel 底层数据结构
 
+```go
+type hchan struct {
+	qcount   uint           // total data in the queue
+	dataqsiz uint           // size of the circular queue
+	buf      unsafe.Pointer // points to an array of dataqsiz elements
+	elemsize uint16
+	closed   uint32
+	elemtype *_type // element type
+	sendx    uint   // send index
+	recvx    uint   // receive index
+	recvq    waitq  // list of recv waiters
+	sendq    waitq  // list of send waiters
+
+	// lock protects all fields in hchan, as well as several
+	// fields in sudogs blocked on this channel.
+	//
+	// Do not change another G's status while holding this lock
+	// (in particular, do not ready a G), as this can deadlock
+	// with stack shrinking.
+	lock mutex
+}
+
+```
+
+![channel](./channel.jpg)
+
+在 Channel 中，环形缓冲区是一个核心的组成部分，让我们来看一下每一个字段具体的含义：
+
+1. buf： 它是一个指向环形缓冲区的指针，这里存放的是等待传递的数据。
+2. dataqsiz ：环形缓冲区的大小，也就是这个缓冲区可以存放多少数据。
+3. qcount：它表示我们缓冲区里现在有多少元素。
+4. elemsize：每个数据元素的大小。
+5. closed：通道是否已经关闭。
+6. elemtype：元素的类型。
+7. sendx/recvx: 分别是写和读指针，指向写入和读取的位置。
+8. sendq/recvq: 分别是发送写入等待队列和读取等待队列，作用于缓冲区满了或者空了的时候，后面会详细介绍。
+9. lock: 这个锁确保同一时间内只有一个协程可以修改 Channel 状态。
+
+
+### 创建
+
+
+
+
+### 写入
 
 
 
