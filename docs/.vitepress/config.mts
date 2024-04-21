@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Go Journey",
+  title: "DayDayGo",
   description: "A VitePress Site",
   base: "/go-journey",
   themeConfig: {
