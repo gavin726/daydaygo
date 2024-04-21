@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "DayDayGo",
   description: "A VitePress Site",
-  base: "/go-journey",
+  base: "/daydaygo",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
